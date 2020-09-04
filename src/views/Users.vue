@@ -3,7 +3,7 @@
     <Header />
     <Sidebar />
     <UserList />
-    <UserButtonAdd />
+    <UserButtonAdd @click="addHandler" />
   </div>
 </template>
 
@@ -20,6 +20,11 @@ export default {
     Sidebar,
     UserList,
     UserButtonAdd
+  },
+  methods: {
+    addHandler(btn) {
+      console.log(btn);
+    }
   }
 };
 </script>

@@ -1,5 +1,14 @@
 <template>
-  <div class="sidebar"></div>
+  <div class="sidebar">
+    <div class="title">
+      <span>System</span>
+    </div>
+
+    <div class="unknow">
+      <img src="@/assets/img/user-logo.png" alt="user logo" class="userLogo" />
+      <span>Users</span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -16,6 +25,30 @@ export default {
   left: 0px;
   top: 0px;
   background: #ffffff;
-  box-shadow: 4px 0px 4px rgba(43, 45, 55, 0.01);
+  color: #000;
+}
+
+.title {
+  position: absolute;
+  width: 194px;
+  height: 77px;
+  left: 30px;
+  top: 30px;
+  color: #000;
+  font-size: 24px;
+}
+
+.unknow {
+  position: absolute;
+  width: 200px;
+  left: 31px;
+  top: 98px;
+  display: flex;
+  align-items: center;
+}
+
+.unknow .userLogo {
+  width: 16px;
+  padding-right: 25px;
 }
 </style>
