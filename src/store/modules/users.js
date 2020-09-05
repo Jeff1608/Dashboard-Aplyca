@@ -13,12 +13,16 @@ const users = {
       { key: "Company" },
       { key: "Options" }
     ],
+    userArrayBase: [],
     userArray: []
   },
 
   mutations: {
-    SET_USERS(state, data) {
-      state.userArray = data;
+    SET_USERS_BASE(state, data) {
+      state.userArrayBase = data;
+    },
+    SET_USERS(state) {
+      state.userArray.push(state.userArrayBase[state.userArray.length]);
     }
   },
 
@@ -28,11 +32,14 @@ const users = {
         .get("https://jsonplaceholder.typicode.com/users")
         .then((response) => {
           console.log(response);
-          commit("SET_USERS", response.data);
+          commit("SET_USERS_BASE", response.data);
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    setUsers({ commit }) {
+      commit("SET_USERS");
     }
   },
 
@@ -42,6 +49,9 @@ const users = {
     },
     getUserArray: (state) => {
       return state.userArray;
+    },
+    getButtonAddDisabled: (state) => {
+      return state.userArrayBase.length == state.userArray.length;
     }
   }
 };

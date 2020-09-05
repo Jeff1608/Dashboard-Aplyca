@@ -3,7 +3,7 @@
     <Header />
     <Sidebar />
     <UserList />
-    <UserButtonAdd @click="addHandler" />
+    <UserButtonAdd @click="addHandler" :disabled="buttonAddDisabled" />
   </div>
 </template>
 
@@ -12,6 +12,7 @@ import Header from "@/components/Header.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import UserList from "@/components/UserList.vue";
 import UserButtonAdd from "@/components/UserButtonAdd.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "User",
@@ -21,9 +22,19 @@ export default {
     UserList,
     UserButtonAdd
   },
+  computed: {
+    ...mapGetters({
+      buttonAddDisabled: "users/getButtonAddDisabled"
+    })
+  },
   methods: {
-    addHandler(btn) {
-      console.log(btn);
+    ...mapActions({
+      setUsers: "users/setUsers"
+    }),
+    addHandler() {
+      if (!this.buttonAddDisabled) {
+        this.setUsers();
+      }
     }
   }
 };

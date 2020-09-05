@@ -1,5 +1,5 @@
 <template>
-  <div ref="button" class="btnAdd" @click="addHandler">
+  <div ref="button" :class="['btnAdd', { disabled }]" @click="addHandler">
     <span class="symbol"></span>
     <span class="text">Add new user</span>
   </div>
@@ -8,6 +8,12 @@
 <script>
 export default {
   name: "UserButtonAdd",
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     addHandler() {
       this.$emit("click", this);
@@ -32,6 +38,12 @@ export default {
 
 .btnAdd:hover {
   background: #0648cc;
+}
+
+.btnAdd.disabled,
+.btnAdd.disabled:hover {
+  background: #6c757d;
+  cursor: default;
 }
 
 .btnAdd span.symbol {
