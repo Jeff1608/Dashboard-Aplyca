@@ -1,12 +1,17 @@
 <template>
   <div class="todos">
-    <h1>TODO's of {{ id }}</h1>
+    <TodoList :id="id" />
   </div>
 </template>
 
 <script>
+import TodoList from "@/components/TodoList.vue";
+
 export default {
   name: "Todos",
+  components: {
+    TodoList
+  },
   props: {
     id: {
       type: String,

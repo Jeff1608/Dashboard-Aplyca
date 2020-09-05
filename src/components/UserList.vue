@@ -9,22 +9,22 @@
       <table>
         <thead>
           <tr>
-            <th v-for="item in dataHeader" :key="item.key">
+            <th v-for="item in tableHeaderData" :key="item.key">
               <span>{{ item.key }}</span>
             </th>
           </tr>
         </thead>
 
         <tbody>
-          <tr v-for="item in 4" :key="item.id">
-            <td>id</td>
-            <td>nombre</td>
-            <td>apellido</td>
-            <td>email</td>
-            <td>direccion</td>
-            <td>compañia</td>
+          <tr v-for="(item, index) in userArray" :key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.username }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ fullAddress[index] }}</td>
+            <td>{{ item.company.name }}</td>
             <td>
-              <router-link :to="{ name: 'Todos', params: { id: '123' } }"
+              <router-link :to="{ name: 'Todos', params: { id: `${item.id}` } }"
                 >View Todos</router-link
               >
             </td>
@@ -36,20 +36,28 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "UserList",
-  data() {
-    return {
-      dataHeader: [
-        { key: "Id" },
-        { key: "Name" },
-        { key: "Username" },
-        { key: "Email" },
-        { key: "Address" },
-        { key: "Company" },
-        { key: "Options" }
-      ]
-    };
+  computed: {
+    ...mapGetters({
+      tableHeaderData: "users/getTableHeaderData",
+      userArray: "users/getUserArray"
+    }),
+    fullAddress() {
+      return this.userArray.map((item) => {
+        return `${item.address.street} ${item.address.suite}, ${item.address.city}`;
+      });
+    }
+  },
+  async mounted() {
+    await this.getUsers();
+  },
+  methods: {
+    ...mapActions({
+      getUsers: "users/getUsers"
+    })
   }
 };
 </script>
@@ -82,7 +90,9 @@ export default {
 
 .usersTable {
   position: absolute;
+  overflow-y: auto;
   width: 789px;
+  height: 480px;
   left: 0;
   right: 0;
   top: 70px;
