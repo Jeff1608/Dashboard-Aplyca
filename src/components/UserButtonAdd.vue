@@ -31,7 +31,7 @@ export default {
 }
 
 .btnAdd:hover {
-  background: rgba(6, 72, 204, 0.9);
+  background: #0648cc;
 }
 
 .btnAdd span.symbol {
